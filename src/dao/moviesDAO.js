@@ -109,7 +109,7 @@ export default class MoviesDAO {
    * @param {string[]} genre - The genres to match with.
    * @returns {QueryParams} The QueryParams for genre search
    */
-  static async genreSearchQuery(genre) {
+  static genreSearchQuery(genre) {
     /**
     Ticket: Text and Subfield Search
 
@@ -121,14 +121,12 @@ export default class MoviesDAO {
 
     // TODO Ticket: Text and Subfield Search
     // Construct a query that will search for the chosen genre.
-      // cursor = await movies.find({countries: {$in: countryArray}}, {projection: {title: 1}})
 
-    const query = await movies.find({ genre: { $in: searchGenre } })
-    // const project = {}
-    // const sort = DEFAULT_SORT
+    const query = { genres: { $in: searchGenre } }
+    const project = {}
+    const sort = DEFAULT_SORT
 
-    // return { query, project, sort }
-    return query.toArray()
+    return { query, project, sort }
   }
 
   /**
