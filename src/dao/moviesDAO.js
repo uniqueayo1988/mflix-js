@@ -266,12 +266,15 @@ export default class MoviesDAO {
     // TODO Ticket: Paging
     // Use the cursor to only return the movies that belong on the current page
     const displayCursor = cursor.limit(moviesPerPage)
+    const pageCursor = cursor.skip(page*20)
+    // const displayCursor = cursor.skip(moviesPerPage * page).limit(moviesPerPage) // mongo answer
 
     try {
       const moviesList = await displayCursor.toArray()
       const totalNumMovies = page === 0 ? await movies.countDocuments(query) : 0
 
-      return { moviesList, totalNumMovies }
+      return { moviesList, pageCursor, totalNumMovies }
+      // return { moviesList, totalNumMovies } // // mongo answer
     } catch (e) {
       console.error(
         `Unable to convert cursor to array or problem counting documents, ${e}`,
