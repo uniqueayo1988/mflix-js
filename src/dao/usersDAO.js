@@ -61,7 +61,7 @@ export default class UsersDAO {
       // Insert a user with the "name", "email", and "password" fields.
       // TODO Ticket: Durable Writes
       // Use a more durable Write Concern for this operation.
-      await users.insertOne({ ...userInfo }) // mongo ans
+      await users.insertOne({ ...userInfo }, { w: "majority" }) // mongo ans // with write concern
       // await users.insertOne({ name: userInfo.name, email: userInfo.email, password: userInfo.password })
       return { success: true }
     } catch (e) {
