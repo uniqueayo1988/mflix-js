@@ -45,7 +45,13 @@ export default class CommentsDAO {
     try {
       // TODO Ticket: Create/Update Comments
       // Construct the comment document to be inserted into MongoDB.
-      const commentDoc = { someField: "someValue" }
+      // const commentDoc = { someField: "someValue" }
+      const commentDoc = { 
+        _id: ObjectId(movieId),
+        text: comment,
+        date,
+        ...user 
+      }
 
       return await comments.insertOne(commentDoc)
     } catch (e) {
@@ -94,8 +100,12 @@ export default class CommentsDAO {
     try {
       // TODO Ticket: Delete Comments
       // Use the userEmail and commentId to delete the proper comment.
+      // const deleteResponse = await comments.deleteOne({
+      //   _id: ObjectId(commentId),
+      // })
       const deleteResponse = await comments.deleteOne({
         _id: ObjectId(commentId),
+        userEmail
       })
 
       return deleteResponse
@@ -105,6 +115,8 @@ export default class CommentsDAO {
     }
   }
 
+  // readConcern: { level: "majority" },
+  // db.collection.find().readConcern(<level>)
   static async mostActiveCommenters() {
     /**
     Ticket: User Report
