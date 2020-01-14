@@ -15,18 +15,6 @@ export default class CommentsDAO {
   }
 
   /**
-  Ticket: Create/Update Comments
-
-  For this ticket, you will need to implement the following two methods:
-
-  - addComment
-  - updateComment
-
-  You can find these methods below this docstring. Make sure to read the comments
-  to better understand the task.
-  */
-
-  /**
    * Inserts a comment into the `comments` collection, with the following fields:
 
      - "name", the name of the user posting the comment
@@ -96,20 +84,11 @@ export default class CommentsDAO {
 
   static async deleteComment(commentId, userEmail) {
     /**
-    Ticket: Delete Comments
-
-    Implement the deleteOne() call in this method.
-
     Ensure the delete operation is limited so only the user can delete their own
     comments, but not anyone else's comments.
     */
 
     try {
-      // TODO Ticket: Delete Comments
-      // Use the userEmail and commentId to delete the proper comment.
-      // const deleteResponse = await comments.deleteOne({
-      //   _id: ObjectId(commentId),
-      // })
       const deleteResponse = await comments.deleteOne({
         _id: ObjectId(commentId),
         email: userEmail
